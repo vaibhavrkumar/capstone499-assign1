@@ -1,34 +1,64 @@
-import java.util.Arrays; 
-import java.util.Collections; 
+import java.util.*; 
 
 
 public class mainClass {
 	public static void main(String[] args) {
 		int [] arr = {12, 87, 78, 98,23, 45};
-		
-		sortArrayAsc(arr);
-		sortArrayDesc(arr);
-	}	
+		String [] strArray = {"Detroit", "Lafayette", "Alexandria","Glendale", "Fargo", "Baltimore", "San Jose"};
+		quickSort(arr, 0, arr.length - 1);
+        //quickSort(strArray, 0, strArray.length - 1);
+		System.out.println(Arrays.toString(arr));
 
-	private static void sortArrayAsc(int[] arr) {
-		System.out.printf("Original Array: %s", Arrays.toString(arr));
-		Arrays.sort(arr);
-		System.out.println();
-		System.out.printf("Sorted in Ascending: %s", Arrays.toString(arr));
-	}
+	}	
 	
-	private static void sortArrayDesc(int[] arr) {
-		// Sorts IntArray in descending order 
-		for (int i = 0; i < arr.length; i++) {
-	        for (int j = i + 1; j < arr.length; j++) {
-	            int tmp = 0;
-	            if (arr[i] > arr[j]) {
-	                tmp = arr[i];
-	                arr[i] = arr[j];
-	                arr[j] = tmp;
-	            }
+	static void swap(int[] arr, int i, int j) {
+	    int temp = arr[i];
+	    arr[i] = arr[j];
+	    arr[j] = temp;
+	}
+
+	static int partition(int[] arr, int low, int high){
+	      
+	    // pivot
+	    int pivot = arr[high]; 
+	      
+	    // Index of smaller element and
+	    // indicates the right position
+	    // of pivot found so far
+	    int i = (low - 1); 
+	  
+	    for(int j = low; j <= high - 1; j++)
+	    {
+	          
+	        // If current element is smaller 
+	        // than the pivot
+	        if (arr[j] < pivot) 
+	        {
+	              
+	            // Increment index of 
+	            // smaller element
+	            i++; 
+	            swap(arr, i, j);
 	        }
 	    }
-	System.out.printf("Sorted in Descending: %s", Arrays.toString(arr));	
+	    swap(arr, i + 1, high);
+	    return (i + 1);
 	}
+	  
+	static void quickSort(int[] arr, int low, int high)
+	{
+	    if (low < high) 
+	    {
+	          
+	        // pi is partitioning index, arr[p]
+	        // is now at right place 
+	        int pi = partition(arr, low, high);
+	  
+	        // Separately sort elements before
+	        // partition and after partition
+	        quickSort(arr, low, pi - 1);
+	        quickSort(arr, pi + 1, high);
+	    }
+	}
+
 }
